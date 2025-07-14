@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MOD Free Fire Max</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #111;
+      color: white;
+    }
+    #mod-toggle, #mod-toggle-right {
+      position: fixed;
+      top: 15px;
+      width: 55px;
+      height: 55px;
+      z-index: 9999;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      animation: rainbow 2s linear infinite;
+      box-shadow: 0 0 12px rgba(255,255,255,0.4);
+    }
+    #mod-toggle {
+      left: 15px;
+      background: linear-gradient(45deg, red, orange, yellow, green, blue, indigo, violet);
+    }
+    #mod-toggle-right {
+      right: 15px;
+      background: linear-gradient(45deg, violet, indigo, blue, green, yellow, orange, red);
+    }
+    @keyframes rainbow {
+      0% { filter: hue-rotate(0deg); }
+      100% { filter: hue-rotate(360deg); }
+    }
+    #mod-menu, #mod-menu-right {
+      position: fixed;
+      top: 85px;
+      width: 270px;
+      max-height: 90vh;
+      overflow-y: auto;
+      background: #1e1e1e;
+      border-radius: 12px;
+      padding: 15px;
+      z-index: 9998;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+      display: none;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+    #mod-menu { left: 15px; }
+    #mod-menu-right { right: 15px; }
+
+    .device-name {
+      text-align: center;
+      background: #eee;
+      color: black;
+      font-weight: bold;
+      padding: 6px;
+      font-size: 13px;
+      border-radius: 6px;
+      margin-bottom: 10px;
+    }
+    .mod-option {
+      display: flex;
+      justify-content: space-between;
+      margin: 6px 0;
+    }
+    .mod-option input {
+      transform: scale(1.2);
+    }
+    .mod-buttons button,
+    #launchGame, #chooseFile, #submitUdid, #openPanel {
+      margin: 5px 0;
+      padding: 10px;
+      width: 100%;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    #launchGame {
+      background: linear-gradient(90deg, #ff3c3c, #ff8c00);
+      color: white;
+    }
+    #chooseFile {
+      background: #444;
+      color: white;
+    }
+    #submitUdid {
+      background: #007aff;
+      color: white;
+    }
+    #openPanel {
+      background: #00cc88;
+      color: white;
+    }
+    #udidInput {
+      width: 100%;
+      padding: 8px;
+      margin: 6px 0;
+      border-radius: 6px;
+      border: none;
+      font-size: 14px;
+    }
+    .status {
+      font-size: 13px;
+      text-align: center;
+      margin-top: 10px;
+    }
+    .status b { color: #00ffcc; }
+
+    #panelWindow {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: rgba(0,0,0,0.85);
+      border: 1px solid #00cc88;
+      border-radius: 10px;
+      padding: 15px;
+      width: 260px;
+      display: none;
+      z-index: 9999;
+    }
+    #panelWindow h4 {
+      margin-top: 0;
+      color: #00ffcc;
+    }
+  </style>
+</head>
+<body>
+
+<div id="mod-toggle">MOD</div>
+<div id="mod-toggle-right">+</div>
+
+<div id="mod-menu">
+  <h3>🎮 MOD MENU</h3>
+  <div class="device-name">Thiết bị bất kỳ</div>
+
+  <input id="udidInput" placeholder="🔒 Nhập UDID thiết bị của bạn" />
+  <button id="submitUdid">🔓 Bật MOD</button>
+
+  <div id="mod-options" style="display:none;">
+    <div class="mod-option"><label>Hack Dame <input type="checkbox" id="hackDame"></label></div>
+    <div class="mod-option"><label>Ghim Đầu <input type="checkbox" id="ghimDau"></label></div>
+    <div class="mod-option"><label>Fix Lag <input type="checkbox" id="fixLag"></label></div>
+    <div class="mod-option"><label>ESP <input type="checkbox" id="esp"></label></div>
+    <div class="mod-option"><label>Wallhack <input type="checkbox" id="wallhack"></label></div>
+    <div class="mod-option"><label>Aimbot <input type="checkbox" id="aimbot"></label></div>
+
+    <div class="mod-buttons">
+      <button onclick="toggleAllMods(true)">🔓 BẬT TẤT CẢ</button>
+      <button onclick="toggleAllMods(false)">🔒 TẮT TẤT CẢ</button>
+    </div>
+
+    <button id="chooseFile" onclick="document.getElementById('fileInput').click()">📂 Chọn tệp cấu hình</button>
+    <input type="file" id="fileInput" style="display:none;" />
+    <button id="launchGame">🚀 Mở Free Fire Max</button>
+    <button id="openPanel">📊 Mở Panel</button>
+  </div>
+
+  <div class="status" id="statusMsg">⚠️ Vui lòng nhập UDID</div>
+</div>
+
+<div id="mod-menu-right">
+  <h3>🧩 iMazing Tools</h3>
+  <div class="device-name">Hỗ trợ iOS / Android</div>
+  <div class="mod-option"><label>Auto Headshot <input type="checkbox" id="imzHeadshot"></label></div>
+  <div class="mod-option"><label>Khóa FPS Cao <input type="checkbox" id="imzFPS"></label></div>
+  <div class="mod-option"><label>Chống Giật <input type="checkbox" id="imzNoShake"></label></div>
+</div>
+
+<div id="panelWindow">
+  <h4>📊 Panel Giám Sát</h4>
+  <p>Trạng thái MOD: <span id="modStatus">Đang chạy ✅</span></p>
+  <p>Aimbot: <span id="aimbotStatus">Tắt ❌</span></p>
+  <p>Ghim đầu: <span id="ghimStatus">Tắt ❌</span></p>
+</div>
+
+<script>
+document.getElementById("submitUdid").onclick = function () {
+  const udid = document.getElementById("udidInput").value.trim();
+  const status = document.getElementById("statusMsg");
+
+  if (udid === "") {
+    status.innerHTML = "❗ Vui lòng nhập UDID trước khi bật MOD";
+    document.getElementById("mod-options").style.display = "none";
+  } else {
+    status.innerHTML = "<b>✅ MOD đã bật cho thiết bị của bạn</b>";
+    document.getElementById("mod-options").style.display = "block";
+  }
+};
+
+document.getElementById("mod-toggle").onclick = () => {
+  const menu = document.getElementById("mod-menu");
+  const isVisible = menu.style.display === "block";
+  menu.style.display = isVisible ? "none" : "block";
+
+  if (!isVisible) alert("📢 Đã mở MOD MENU thành công!");
+};
+
+document.getElementById("mod-toggle-right").onclick = () => {
+  const menu = document.getElementById("mod-menu-right");
+  const isVisible = menu.style.display === "block";
+  menu.style.display = isVisible ? "none" : "block";
+
+  if (!isVisible) alert("🔧 Đã mở iMazing Tools thành công!");
+};
+
+function toggleAllMods(enable) {
+  const ids = ["hackDame", "ghimDau", "fixLag", "esp", "wallhack", "aimbot"];
+  ids.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.checked = enable;
+  });
+}
+
+document.getElementById("launchGame").onclick = () => {
+  alert("🚀 Đang mở Free Fire Max...");
+  window.location.href = "freefiremax://";
+};
+
+document.getElementById("openPanel").onclick = () => {
+  const panel = document.getElementById("panelWindow");
+  const aimbot = document.getElementById("aimbot").checked;
+  const ghim = document.getElementById("ghimDau").checked;
+
+  document.getElementById("aimbotStatus").innerText = aimbot ? "Bật ✅" : "Tắt ❌";
+  document.getElementById("ghimStatus").innerText = ghim ? "Bật ✅" : "Tắt ❌";
+
+  panel.style.display = panel.style.display === "none" ? "block" : "none";
+};
+</script>
+
+</body>
+</html>
